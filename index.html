@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Company Products</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: lightgray;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    h1 {
+      color: darkblue;
+      margin-bottom: 20px;
+    }
+
+    .product-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .product {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px gray;
+      width: 200px;
+      padding: 10px;
+      text-align: center;
+    }
+
+
+
+    .product h3 {
+      color: black;
+      margin: 10px 0 5px 0;
+    }
+
+    .product p {
+      color: dimgray;
+      margin: 5px 0;
+    }
+
+    button {
+      background-color: blue;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      margin: 10px 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: darkblue;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Company Product List</h1>
+
+  <div class="product-container" id="productContainer"></div>
+
+  <div>
+    <button onclick="addProduct()">Add Product</button>
+    <button onclick="deleteProduct()">Delete Product</button>
+  </div>
+
+  <script>
+    // Initial product array
+    let products = [
+      { id: "P101", name: "Laptop", price: 25000 },
+      { id: "P102", name: "Smartphone", price: 15000 },
+      { id: "P103", name: "Headphones", price: 800 },
+      { id: "P104", name: "Smartwatch", price: 1200 },
+      { id: "P105", name: "Camera", price: 5000 }
+    ];
+
+    // Display products
+    function displayProducts() {
+      const container = document.getElementById("productContainer");
+      container.innerHTML = ""; // clear existing content
+
+      products.forEach(p => {
+        const card = document.createElement("div");
+        card.className = "product";
+        card.innerHTML = `
+          <h3>${p.name}</h3>
+          <p><strong>ID:</strong> ${p.id}</p>
+          <p><strong>Price:</strong> ${p.price} EGP</p>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    displayProducts();
+
+    // Add new product
+    function addProduct() {
+      const id = prompt("Enter product ID:");
+      const name = prompt("Enter product name:");
+      const price = prompt("Enter product price:");
+      if (id && name && price) {
+        products.push({ id, name, price: parseFloat(price), img });
+        displayProducts();
+        alert("Product added successfully!");
+      } else {
+        alert("Please enter all product details.");
+      }
+    }
+
+    // Delete product by ID
+    function deleteProduct() {
+      const id = prompt("Enter the product ID to delete:");
+      const index = products.findIndex(p => p.id === id);
+
+      if (index !== -1) {
+        products.splice(index, 1);
+        displayProducts();
+        alert("Product deleted successfully!");
+      } else {
+        alert("Product not found!");
+      }
+    }
+  </script>
+
+</body>
+</html>
